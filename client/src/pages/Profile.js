@@ -32,19 +32,15 @@ const Profile = () => {
                         <TenantDetails key={tenant.tenant_ID} tenant={tenant} />
                     </div>
                 ))}
-            </div>
-            <div>
                 {tenants && tenants.map((tenantBalance) => (
                     <div key={tenantBalance.tenant_ID}>
                         <CurrentBalance key={tenantBalance.tenant_ID} tenantBalance={tenantBalance} />
                     </div>
                 ))}
             </div>
-            <div className="container">
-                <button className='btnSetting' onClick={() => navigate('setting')}> 
-                    <i className="fa-solid fa-gear"></i> <strong>Setting</strong>
-                </button>
-            </div>
+            <button className='btnPay' onClick={() => navigate('setting')}> 
+                <i className="fa-solid fa-gear"></i> <strong>Setting</strong>
+            </button>
         </>
     )
 } 

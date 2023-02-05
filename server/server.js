@@ -6,6 +6,7 @@ const userRoutes = require('./routes/userRoute')
 const tenantRoutes = require('./routes/tenantRoute')
 const roomRoutes = require('./routes/roomRoute')
 const transactionRoutes = require('./routes/transactionRoutes')
+const paymentRoutes = require('./routes/paymentRoutes')
 
 // express app
 const app = express()
@@ -18,6 +19,7 @@ app.use('/tenant', tenantRoutes)
 app.use('/user', userRoutes)
 app.use('/room', roomRoutes)
 app.use('/transaction', transactionRoutes)
+app.use('/payment', paymentRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

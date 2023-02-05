@@ -59,12 +59,17 @@ const updateUser = async (req, res) => {
   const {user_Name, password} = req.body
 
   try {
-    const salt = await bcrypt.genSalt(10)
-    const hash = await bcrypt.hash(password, salt)
+    if (!user_Name || !password) {
+      throw Error('All fields must be filled')
+    }
+    else{
+      const salt = await bcrypt.genSalt(10)
+      const hash = await bcrypt.hash(password, salt)
 
-    const user = await User.findOneAndUpdate({user_Name}, {password : hash})
+      const user = await User.findOneAndUpdate({user_Name}, {password : hash})
 
-    res.status(200).json({user_Name, password: hash})
+      res.status(200).json(user)
+    }
   } catch (error) {
     res.status(400).json({error: error.message})
   }

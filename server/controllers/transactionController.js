@@ -2,6 +2,7 @@ const { default: mongoose } = require('mongoose')
 const Transaction = require('../models/transactionModel')
 const Tenant = require('../models/tenantModel')
 const Room = require('../models/roomModel')
+const Payment = require('../models/paymentModel')
 
 //GET all transaction
 const getTransactions = async (req, res) => {
@@ -81,28 +82,42 @@ const updateTransaction = async(req,res) => {
 
     try {
         const oldTransaction = await Transaction.findById({_id: id})
-        const oldAmountPaid = parseFloat(oldTransaction.amount_Paid)
+        const oldAmountPaid = parseFloat(oldTransaction.amount_Paid) //1000
         const transaction = await Transaction.findOneAndUpdate({_id: id}, {
-            ...req.body
+            ...req.body //1000
         })
         const transactionFind = await Transaction.findById({_id: id})
         const tenant_ID = transactionFind.tenant_ID
         const tenant = await Tenant.find({tenant_ID})
 
         const updateBalance = parseFloat(tenant[0].balance) - parseFloat(transactionFind.amount_Paid)
-        const newAmountPaid = parseFloat(transactionFind.amount_Paid) + oldAmountPaid
+        const newAmountPaid = parseFloat(transactionFind.amount_Paid) + oldAmountPaid //2000
 
         if(updateBalance <= 0){
             const transactionUpdate = await Transaction.findOneAndUpdate({_id: id}, {status: "true", amount_Paid: newAmountPaid.toString()})
             const tenantUpdate = await Tenant.findOneAndUpdate({tenant_ID}, {balance : updateBalance.toString()})
+            const transactionFindUpdate = await Transaction.findById({_id: id})
 
-            res.status(200).json(oldTransaction && transaction && transactionFind && tenant && transactionUpdate && tenantUpdate)
+            const start_Month = transactionFindUpdate.start_Month
+            const due_Amount = transactionFindUpdate.true_Amount
+            const amount_Paid = parseFloat(transactionFindUpdate.amount_Paid) - oldAmountPaid
+            
+            const payment = await Payment.create({tenant_ID, start_Month, due_Amount, amount_Paid: amount_Paid.toString()})
+
+            res.status(200).json(oldTransaction && transaction && transactionFind && tenant && transactionUpdate && tenantUpdate && payment)
         }
         else{
             const transactionUpdate = await Transaction.findOneAndUpdate({_id: id}, {total_Amount: updateBalance.toString(), amount_Paid: newAmountPaid.toString()})
             const tenantUpdate = await Tenant.findOneAndUpdate({tenant_ID}, {balance : updateBalance.toString()})
+            const transactionFindUpdate = await Transaction.findById({_id: id})
 
-            res.status(200).json(oldTransaction && transaction && transactionFind && tenant && transactionUpdate && tenantUpdate)
+            const start_Month = transactionFindUpdate.start_Month
+            const due_Amount = transactionFindUpdate.true_Amount
+            const amount_Paid = parseFloat(transactionFindUpdate.amount_Paid) - oldAmountPaid
+            
+            const payment = await Payment.create({tenant_ID, start_Month, due_Amount, amount_Paid})
+
+            res.status(200).json(oldTransaction && transaction && transactionFind && tenant && transactionUpdate && tenantUpdate && payment)
         }
         
         

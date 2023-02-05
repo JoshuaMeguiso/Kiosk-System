@@ -1,20 +1,19 @@
-import { useEffect} from 'react'
+import { useEffect, useState } from 'react'
 
 import TransactionDetails from '../components/transactionDetails'
 import { useAuthContext } from '../hooks/useAuthContext'
-import { useTransactionsContext } from  '../hooks/useTransactionsContext'
 
 const Transaction = () => {
-    const { transactions, dispatch } = useTransactionsContext()
+    const [ payments, setPayment ] = useState()
     const { user } = useAuthContext()
 
     useEffect(() => {
         const fetchTransactions = async () => {
-            const response = await fetch(`/transaction/${user.user_Name}/true`)
+            const response = await fetch(`/payment/${user.user_Name}`)
             const json = await response.json()
 
             if(response.ok){
-                dispatch({type: 'SET_TRANSACTIONS', payload: json})
+                setPayment(json)
             }
         }
         fetchTransactions();
@@ -22,9 +21,9 @@ const Transaction = () => {
     }, [])
     return (
         <div>
-            {transactions && transactions.map((transaction)=> (
-                <div key={transaction._id}>
-                    <TransactionDetails key={transaction._id} transaction={transaction} />
+            {payments && payments.map((payment)=> (
+                <div key={payment._id}>
+                    <TransactionDetails key={payment._id} payment={payment} />
                 </div>
             ))}
         </div>
