@@ -24,15 +24,34 @@ const Statement = () => {
     }, [])
     
     return (
-        <div>
+        <>
             {transactions && transactions.map((statement) => (
                 <div key={statement._id}>
-                    <StatementDetails key={statement._id} statement={statement} />
-                    <button className='btnPay' onClick={() => navigate('pay')}><i className="fa-solid fa-money-bills"></i><strong> Pay</strong></button>
-                    <button className='btnPay' onClick={() => navigate('print')}><i className="fa-sharp fa-solid fa-receipt"></i><strong> Print</strong></button>
+                    <StatementDetails 
+                        key={statement._id} 
+                        statement={statement} 
+                    />
+                    <button className='btnPay' onClick={() => navigate('pay')}>
+                        <i className="fa-solid fa-money-bills"></i>
+                        <strong> Pay </strong>
+                    </button>
+                    <button className='btnPay' onClick={() => navigate('print')}>
+                        <i className="fa-sharp fa-solid fa-receipt"></i>
+                        <strong> Print</strong>
+                    </button>
                 </div>
             ))}
-        </div>
+            {transactions && (
+                <div>
+                    {!transactions[0] && (
+                        <div className='tenant-details'>
+                            <p><strong>No Statement of Account</strong></p>
+                        </div>
+                    )}
+                </div>
+            )}
+
+        </>
     )
 } 
 

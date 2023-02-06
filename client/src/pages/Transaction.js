@@ -20,13 +20,25 @@ const Transaction = () => {
         // eslint-disable-next-line
     }, [])
     return (
-        <div>
+        <>
             {payments && payments.map((payment)=> (
                 <div key={payment._id}>
-                    <TransactionDetails key={payment._id} payment={payment} />
+                    <TransactionDetails 
+                        key={payment._id} 
+                        payment={payment} 
+                    />
                 </div>
             ))}
-        </div>
+            {payments && (
+                <div>
+                    {!payments[0] && (
+                        <div className='tenant-details'>
+                            <p><strong>No History of Transaction</strong></p>
+                        </div>
+                    )}
+                </div>
+            )}
+        </>
     )
 } 
 

@@ -21,14 +21,32 @@ const { user } = useAuthContext()
         <Navbar />
         <div className='pages'>
           <Routes>
-            <Route path="/" element={!user ? <Login /> : <Navigate to='/home' />}/>
-            <Route path="/home" element={user ? <Home /> : <Navigate to='/' />} />
-            <Route path="/profile" element={user ? <Profile /> : <Navigate to='/' />} />
-            <Route path="/statement" element={user ? <Statement />  : <Navigate to='/' />} />
-            <Route path="/transaction" element={user ? <Transaction /> : <Navigate to='/' />} />
-            <Route path="/profile/setting" element={user ? <Setting /> : <Navigate to='/' />} />
-            <Route path="/statement/pay" element={user ? <Pay /> : <Navigate to='/' />} />
-            <Route path="/statement/print" element={user ? <Print /> : <Navigate to='/' />} />
+            <Route 
+              path="/" 
+              element={!user ? <Login /> : <Navigate to='/home' />}
+            />
+            <Route 
+              path="/home" 
+              element={user ? <Home /> : <Navigate to='/' />} 
+            />
+            <Route 
+              path="/profile" element={user ? <Profile /> : <Navigate to='/' />} 
+            />
+            <Route 
+              path="/statement" element={user ? <Statement />  : <Navigate to='/' />} 
+            />
+            <Route 
+              path="/transaction" element={user ? <Transaction /> : <Navigate to='/' />} 
+            />
+            <Route 
+              path="/profile/setting" element={user ? <Setting /> : <Navigate to='/' />} 
+            />
+            <Route 
+              path="/statement/pay" element={user ? <Pay /> : <Navigate to='/' />} 
+            />
+            <Route 
+              path="/statement/print" element={user ? <Print /> : <Navigate to='/' />} 
+            />
           </Routes>
         </div>
       </BrowserRouter>

@@ -1,9 +1,11 @@
 
-const currentBalance = ({tenantBalance}) => { 
-    const balanceConverted = parseFloat(tenantBalance.balance);
+const currentBalance = ({tenant}) => { 
+    const balanceConverted = parseFloat(tenant.balance);
     return(
         <div className="tenant-details">
-            <p><strong>Current Balance: {balanceConverted.toFixed(2)}</strong></p>
+            <p>
+                <strong>Amount Payable: ₱ {balanceConverted.toFixed(2)}</strong>
+            </p>
         </div>
     )
 }

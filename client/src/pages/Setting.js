@@ -19,28 +19,51 @@ const Setting = () => {
         <div className="tenant-details">
             <div className="form">
                 <form onSubmit={handleSubmit}>
-                <h1>Change Password</h1>
-                <label><br/><h2>User Name: </h2></label>
-                <input
-                    type="username" 
-                    disabled
-                    value={user.user_Name} 
-                />
-                <label><h2>Change Password: </h2></label>
-                <input 
-                    type="password" 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    value={password} 
-                />
-                <label><h2>Confirm Password: </h2></label>
-                <input 
-                    type="password" 
-                    onChange={(e) => setPassword1(e.target.value)} 
-                    value={password1} 
-                />
-                <button className="btnPassword" disabled={isLoading}><strong>Confirm</strong></button>
-                <button className="btnPassword" onClick={() => navigate(-1)}><strong>Cancel</strong></button>
-                {error && <div className="error">{error}</div>}
+                    <h1>
+                        Change Password
+                    </h1>
+                    <label>
+                        <br/>
+                        <h2>
+                            User Name: 
+                        </h2>
+                    </label>
+                    <input
+                        type="username" 
+                        disabled
+                        value={user.user_Name} 
+                    />
+                    <label>
+                        <h2>
+                            Change Password: 
+                        </h2>
+                    </label>
+                    <input 
+                        type="password" 
+                        onChange={(e) => setPassword(e.target.value)} 
+                        value={password} 
+                    />
+                    <label>
+                        <h2>
+                            Confirm Password: 
+                        </h2>
+                    </label>
+                    <input 
+                        type="password" 
+                        onChange={(e) => setPassword1(e.target.value)} 
+                        value={password1} 
+                    />
+                    <button className="btnPassword" disabled={isLoading}>
+                        <strong>
+                            Confirm
+                        </strong>
+                    </button>
+                    <button className="btnPassword" type="button" onClick={() => navigate(-1)}>
+                        <strong>
+                            Cancel
+                        </strong>
+                    </button>
+                    {error && <div className="error">{error}</div>}
                 </form>
             </div> 
         </div>
