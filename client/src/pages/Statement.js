@@ -42,13 +42,13 @@ const Statement = () => {
                 </div>
             ))}
             {transactions && (
-                <div>
+                <>
                     {!transactions[0] && (
                         <div className='tenant-details'>
                             <p><strong>No Statement of Account</strong></p>
                         </div>
                     )}
-                </div>
+                </>
             )}
 
         </>

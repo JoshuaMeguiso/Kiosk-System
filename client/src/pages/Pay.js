@@ -10,6 +10,7 @@ const Pay = () => {
     const [cash, setCash] = useState('')
     const { Payment, isLoading, error } =  usePay()
     const navigate = useNavigate();
+    const cashRemaining = parseFloat(transactions[0].total_Amount) - cash
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -46,7 +47,7 @@ const Pay = () => {
                     <input
                         type="float" 
                         disabled
-                        value={parseFloat(transactions[0].total_Amount).toFixed(2)} 
+                        value={cashRemaining.toFixed(2)} 
                     />
                     <label>
                         <h2>
