@@ -24,7 +24,7 @@ const createTenant = async(req, res) => {
         if(roomFind[0].room_Occupancy < roomFind[0].room_Capacity ){
             const tenant = await Tenant.create({tenant_ID, room_ID, first_Name, last_Name, birth_Date, contact_Info, emergency_Num, address, start_Term, lease_Term, balance})
             const roomUpdate = await Room.findOneAndUpdate({room_ID}, {room_Occupancy: (roomFind[0].room_Occupancy + 1)})
-            const user = await User.signup(tenant_ID, '12345')
+            const user = await User.signup(tenant_ID, '12345', 'user')
             res.status(200).json(user && roomUpdate && tenant)
         }
         else{

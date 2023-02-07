@@ -16,20 +16,25 @@ export const useLogin = () => {
       body: JSON.stringify({ user_Name, password })
     })
     const json = await response.json()
-
-    if (!response.ok) {
+    if(json.user_Type === 'admin'){
       setIsLoading(false)
-      setError(json.error)
+      setError('Please login in the mobile app')
     }
-    if (response.ok) {
-      // save the user to local storage
-      localStorage.setItem('user', JSON.stringify(json))
-
-      // update the auth context
-      dispatch({type: 'LOGIN', payload: json})
-
-      // update loading state
-      setIsLoading(false)
+    else{
+      if (!response.ok) {
+        setIsLoading(false)
+        setError(json.error)
+      }
+      if (response.ok) {
+        // save the user to local storage
+        localStorage.setItem('user', JSON.stringify(json))
+  
+        // update the auth context
+        dispatch({type: 'LOGIN', payload: json})
+  
+        // update loading state
+        setIsLoading(false)
+      }
     }
   }
 
